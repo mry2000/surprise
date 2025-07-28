@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>İstifa Sürprizi</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #ffe6f0, #fff0f5);
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    #trigger {
+      padding: 15px 30px;
+      font-size: 20px;
+      background-color: hotpink;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 20px hotpink;
+      transition: transform 0.3s;
+    }
+
+    #trigger:hover {
+      transform: scale(1.1);
+    }
+
+    #animation-container {
+      display: none;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 150px;
+      height: 150px;
+      background: pink;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 30px hotpink;
+      z-index: 2;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: pink;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .heart::before {
+      top: -75px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 75px;
+      top: 0;
+    }
+
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      text-shadow: 0 0 8px #ff69b4, 0 0 16px #ff1493, 0 0 24px #ff69b4;
+      z-index: 3;
+      text-transform: uppercase;
+      pointer-events: none;
+      text-align: center;
+    }
+
+    .confetti, .small-heart {
+      position: absolute;
+      font-size: 12px;
+      animation: float 5s linear infinite;
+      color: hotpink;
+      z-index: 4;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-800px) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1) rotate(-45deg);
+      }
+      50% {
+        transform: scale(1.2) rotate(-45deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<button id="trigger">BENİ TIKLA</button>
+
+<div id="animation-container">
+  <div class="heart">
+    <div class="message">İSTİFA EDİYORUM 💖</div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('trigger').addEventListener('click', function () {
+    this.style.display = 'none'; // Butonu gizle
+    const container = document.getElementById('animation-container');
+    container.style.display = 'block';
+
+    const symbols = ['💖', '✨', '🌟', '💗', '💞'];
+    for (let i = 0; i < 100; i++) {
+      let elem = document.createElement('div');
+      elem.className = Math.random() < 0.5 ? 'small-heart' : 'confetti';
+      elem.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      elem.style.left = Math.random() * 100 + 'vw';
+      elem.style.top = Math.random() * 100 + 'vh';
+      elem.style.animationDuration = (2 + Math.random() * 3) + 's';
+      elem.style.fontSize = (10 + Math.random() * 15) + 'px';
+      container.appendChild(elem);
+    }
+  });
+</script>
+
+</body>
+</html>
